@@ -1,0 +1,28 @@
+{
+  "name": "ddrv/slim-app",
+  "version": "1.0.0",
+  "type": "package",
+  "description": "Simple web application based on slim/slim and symfony/console",
+  "keywords": ["php", "application", "slim", "symfony-console", "skeleton"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ivan Dudarev",
+      "email": "ivan@ddrv.ru",
+      "homepage": "https://ddrv.ru"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "slim/slim": "^3.9",
+    "slim/twig-view": "^2.3",
+    "analog/analog": "^1.0",
+    "twig/twig": "~1.18",
+    "symfony/console": "3.1.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app"
+    }
+  }
+}
