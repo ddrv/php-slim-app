@@ -1,7 +1,7 @@
 {
   "name": "ddrv/slim-app",
-  "version": "1.0.0",
-  "type": "package",
+  "version": "1.0.1",
+  "type": "project",
   "description": "Simple web application based on slim/slim and symfony/console",
   "keywords": ["php", "application", "slim", "symfony-console", "skeleton"],
   "license": "MIT",
