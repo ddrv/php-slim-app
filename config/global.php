@@ -16,8 +16,11 @@ return [
     ],
     'bootstrap' => [
         \App\Bootstrap\BaseBootstrap::class,
+        \App\Bootstrap\LoggerBootstrap::class,
         \App\Bootstrap\TwigRender::class,
         \App\Bootstrap\UriGeneratorBootstrap::class,
         \App\Bootstrap\CommandGeneratorBootstrap::class,
+        \App\Bootstrap\WebAppBootstrap::class,
+        \App\Bootstrap\CliAppBootstrap::class,
     ],
 ];

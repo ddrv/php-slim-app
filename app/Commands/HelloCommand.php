@@ -11,13 +11,27 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class HelloCommand
  * @property UriGenerator $uriGenerator
  */
-class HelloCommand extends Command
+class HelloCommand extends CommandAbstract
 {
 
     /**
      * @var UriGenerator
      */
     protected $uriGenerator;
+
+    /**
+     * Cron expression.
+     *
+     * @var string
+     * @see https://en.wikipedia.org/wiki/Cron#CRON_expression
+     *
+     * For example:
+     * '* * * * *' - every minutes
+     * '0 0 * * *', '@daily', - every day in 00:00
+     *
+     * Add next line to your crontab for work it: * * * * * /path/to/project/bin/cron
+     */
+    protected $shedule = '';
 
     /**
      * HelloCommand constructor.

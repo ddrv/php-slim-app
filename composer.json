@@ -18,7 +18,8 @@
     "slim/twig-view": "^2.3",
     "analog/analog": "^1.0",
     "twig/twig": "~1.18",
-    "symfony/console": "3.1.4"
+    "symfony/console": "3.1.4",
+    "mtdowling/cron-expression": "^1.2"
   },
   "autoload": {
     "psr-4": {
