@@ -1,26 +1,30 @@
 <?php
 
-$autoloader = require(__DIR__.'/vendor/autoload.php');
+require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
 
-use App\BootstrapInterface;
-use Slim\Container;
+$env = getenv('APP_ENV');
+if (!$env) $env = 'local';
+$config = require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'global.php';
+$envConfigFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $env . '.php';
+/** @noinspection PhpIncludeInspection */
+$envConfig = file_exists($envConfigFile)?require($envConfigFile): [];
+$config = array_replace_recursive($config, $envConfig);
 
-$environment = file_exists(__DIR__.'/.environment')?(trim(file_get_contents(__DIR__.'/.environment'))):'local';
+$settings = $config['slim.settings'];
+unset($config['slim.settings']);
 
-$config = require (__DIR__.'/config/global.php');
-$envConfigFile = __DIR__.'/config/'.$environment.'.php';
-if (is_readable($envConfigFile)) {
-    $envConfig = include ($envConfigFile);
-    $config = array_replace_recursive($config, $envConfig);
-}
+$container = new \Slim\Container([
+    'settings' => $settings,
+    'config' => $config,
+]);
 
-$container = new Container($config);
-
-foreach ($config['bootstrap'] as $bootstrap) {
-    $boot = new $bootstrap();
-    if ($boot instanceof BootstrapInterface) {
-        $boot->boot($container);
+foreach ($config['providers'] as $className) {
+    if (!class_exists($className)) {
+        /** @noinspection PhpUnhandledExceptionInspection */
+        throw new Exception('Provider ' . $className . ' not found');
     }
+    $provider = new $className;
+    $container->register(new $provider);
 }
 
 return $container;

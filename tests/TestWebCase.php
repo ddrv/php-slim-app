@@ -167,6 +167,6 @@ abstract class TestWebCase extends TestCase
         $request  = new Request($server['REQUEST_METHOD'], $uri, $headers, [], $server, $body);
         $response = new Response();
         $container = require (__DIR__.'/../bootstrap.php');
-        return $container->get('web')->process($request, $response);
+        return $container['web']->process($request, $response);
     }
 }

@@ -1,26 +1,41 @@
 <?php
 
+$root = dirname(__DIR__);
+
 return [
-    'settings' => [
-        'displayErrorDetails' => false,
-        'addContentLengthHeader' => true,
-        'debug' => false,
-        'path' => [
-            'base' => dirname(__DIR__),
-            'views' => dirname(__DIR__).'/resources/views',
-            'cache' => dirname(__DIR__).'/storage/cache',
-            'logs' => dirname(__DIR__).'/storage/logs',
-            'command' => dirname(__DIR__).'/bin/command',
-            'php' => '/usr/bin/php',
+    'providers' => [
+        \App\Provider\CommandsProvider::class,
+        \App\Provider\RenderProvider::class,
+        \App\Provider\LoggerProvider::class,
+        \App\Provider\WebProvider::class,
+    ],
+    'slim.settings' => [
+        'debug'               => true,
+        'displayErrorDetails' => true,
+    ],
+    'site' => [
+        'host' => 'localhost',
+    ],
+    'fs' => [
+        'exec' => '/usr/bin/php ' . implode(DIRECTORY_SEPARATOR, [$root, 'bin', 'console']),
+        'logs' => implode(DIRECTORY_SEPARATOR, [$root, 'var', 'logs']),
+    ],
+    'render.web' => [
+        'render' => 'twig',
+        'twig.templates' => implode(DIRECTORY_SEPARATOR, [$root, 'templates', 'twig', 'web']),
+        'twig.options.cache' => implode(DIRECTORY_SEPARATOR, [$root, 'var', 'cache', 'templates', 'twig', 'web']),
+        'twig.options.debug' => false,
+    ],
+    'schedule' => [
+        /*
+        [
+            'expression' => '* * * * *',
+            'command' => 'console:command argument1 argument2',
+            'options' => [
+                'some-option' => 'some-value'
+            ],
         ],
+        /**/
     ],
-    'bootstrap' => [
-        \App\Bootstrap\BaseBootstrap::class,
-        \App\Bootstrap\LoggerBootstrap::class,
-        \App\Bootstrap\TwigRender::class,
-        \App\Bootstrap\UriGeneratorBootstrap::class,
-        \App\Bootstrap\CommandGeneratorBootstrap::class,
-        \App\Bootstrap\WebAppBootstrap::class,
-        \App\Bootstrap\CliAppBootstrap::class,
-    ],
+
 ];
