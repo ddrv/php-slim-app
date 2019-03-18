@@ -2,8 +2,8 @@
 
 namespace App\Provider;
 
-use App\Command\App\DevCommand;
-use App\Command\App\HelloCommand;
+use App\Command\App\AppDevCommand;
+use App\Command\App\AppHelloCommand;
 use App\Command\Schedule\ScheduleListCommand;
 use App\Command\Schedule\ScheduleRunCommand;
 use App\Service\Schedule\Schedule;
@@ -39,13 +39,13 @@ class CommandsProvider implements ServiceProviderInterface
              * @var Router $router
              */
             $router = $container['router'];
-            return new HelloCommand($router, 'app:hello');
+            return new AppHelloCommand($router, 'app:hello');
         };
 
         $container['cli.app:dev'] = function (Container $container) {
             $config = $container['config'];
             $entry = $config['fs']['entry'];
-            return new DevCommand($entry, 'app:dev');
+            return new AppDevCommand($entry, 'app:dev');
         };
 
         $container['cli.schedule:run'] = function (Container $container) {
