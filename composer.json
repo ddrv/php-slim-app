@@ -1,6 +1,6 @@
 {
   "name": "ddrv/slim-app",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "type": "project",
   "description": "Simple web application based on slim/slim and symfony/console",
   "keywords": ["php", "application", "slim", "symfony-console", "skeleton"],
@@ -14,16 +14,24 @@
   ],
   "require": {
     "php": ">=5.6",
-    "slim/slim": "^3.9",
-    "slim/twig-view": "^2.3",
-    "analog/analog": "^1.0",
-    "twig/twig": "~1.18",
-    "symfony/console": "3.1.4",
-    "mtdowling/cron-expression": "^1.2"
+    "slim/slim": "~3.12",
+    "twig/twig": "~1.38",
+    "symfony/console": "~3.4",
+    "symfony/process": "~3.4",
+    "analog/analog": "~1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.7"
   },
   "autoload": {
     "psr-4": {
       "App\\": "app"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\App\\": "tests"
+    }
   }
 }
+
