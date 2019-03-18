@@ -27,19 +27,19 @@ class PageController
         $this->render = $render;
     }
 
-    public function home(ServerRequestInterface $request, ResponseInterface $response, $args)
+    public function home(ServerRequestInterface $request, ResponseInterface $response)
     {
-        unset($args, $request);
+        unset($request);
         return $this->render->view($response, 'page/main', [
             'command' => 'php ./bin/console app:hello',
         ]);
     }
 
-    public function hello(ServerRequestInterface $request, ResponseInterface $response, $args)
+    public function hello(ServerRequestInterface $request, ResponseInterface $response)
     {
-        unset($request);
+        $name = $request->getAttribute('name');
         return $this->render->view($response, 'page/hello', [
-            'name' => $args['name'],
+            'name' => $name,
         ]);
     }
 }
