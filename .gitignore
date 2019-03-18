@@ -3,7 +3,9 @@ vendor/*
 .environment
 config/*
 !config/global.php
-storage/cache/*
-!storage/cache/.gitkeep
-storage/logs/*
-!storage/logs/.gitkeep
+var/cache/*
+!var/cache/.gitkeep
+var/logs/*
+!var/logs/.gitkeep
+var/storage/*
+!var/storage/.gitkeep

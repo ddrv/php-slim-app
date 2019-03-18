@@ -17,6 +17,8 @@ return [
         'host' => 'localhost',
     ],
     'fs' => [
+        'public' => implode(DIRECTORY_SEPARATOR, [$root, 'public']),
+        'entry' => implode(DIRECTORY_SEPARATOR, [$root, 'public', 'index.php']),
         'exec' => '/usr/bin/php ' . implode(DIRECTORY_SEPARATOR, [$root, 'bin', 'console']),
         'logs' => implode(DIRECTORY_SEPARATOR, [$root, 'var', 'logs']),
     ],

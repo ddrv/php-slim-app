@@ -2,12 +2,12 @@
 
 namespace App\Command\Schedule;
 
+use App\Command\IOStyle;
 use DateTime;
 use App\Api\Schedule\ScheduleInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ScheduleRunCommand extends Command
 {
@@ -37,7 +37,7 @@ class ScheduleRunCommand extends Command
         $jobs = $this->schedule->run();
         /** @noinspection PhpUnhandledExceptionInspection */
         $time = new DateTime();
-        $io = new SymfonyStyle($input, $output);
+        $io = new IOStyle($input, $output);
         $io->text($time->format(DateTime::ATOM));
         if (!$jobs) {
             $io->text('Jobs list is empty');

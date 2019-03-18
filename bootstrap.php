@@ -27,4 +27,6 @@ foreach ($config['providers'] as $className) {
     $container->register(new $provider);
 }
 
+$container['web'];
+
 return $container;

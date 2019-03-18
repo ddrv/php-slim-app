@@ -24,17 +24,6 @@ abstract class TestWebCase extends TestCase
      * @param array $headers
      * @return ResponseInterface
      */
-    protected function connect($uri, $body='', $headers=[])
-    {
-        return $this->request('CONNECT', $uri, $body, $headers);
-    }
-
-    /**
-     * @param string $uri
-     * @param string $body
-     * @param array $headers
-     * @return ResponseInterface
-     */
     protected function delete($uri, $body='', $headers=[])
     {
         return $this->request('DELETE', $uri, $body, $headers);
@@ -106,17 +95,6 @@ abstract class TestWebCase extends TestCase
     }
 
     /**
-     * @param string $uri
-     * @param string $body
-     * @param array $headers
-     * @return ResponseInterface
-     */
-    protected function trace($uri, $body='', $headers=[])
-    {
-        return $this->request('TRACE', $uri, $body, $headers);
-    }
-
-    /**
      * @param string $method
      * @param string $uri
      * @param string $body
@@ -125,21 +103,21 @@ abstract class TestWebCase extends TestCase
      */
     protected function request($method, $uri, $body='', $headers=[])
     {
-        $server = $this->getGlobalsServer($method, $uri, $body, $headers);
+        $server = $this->getGlobalsServer($method, $uri, $headers);
         return $this->runApp($server, $body);
     }
 
     /**
      * @param string $method
      * @param string $uri
-     * @param string $body
      * @param array $headers
      * @return array
      */
 
-    protected function getGlobalsServer($method, $uri, $body='', $headers=[])
+    protected function getGlobalsServer($method, $uri, $headers=[])
     {
         $server = [
+            'HTTP_HOST' => 'testhost',
             'REQUEST_METHOD' => $method,
             'REQUEST_URI'    => $uri,
         ];
@@ -153,6 +131,7 @@ abstract class TestWebCase extends TestCase
     }
 
     /**
+     * @noinspection PhpDocMissingThrowsInspection
      * @param array $server
      * @param string $content
      * @return ResponseInterface
@@ -167,6 +146,11 @@ abstract class TestWebCase extends TestCase
         $request  = new Request($server['REQUEST_METHOD'], $uri, $headers, [], $server, $body);
         $response = new Response();
         $container = require (__DIR__.'/../bootstrap.php');
-        return $container['web']->process($request, $response);
+        $web = $container['web'];
+        /** @var App $web */
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $response = $web->process($request, $response);
+        $response->getBody()->rewind();
+        return $response;
     }
 }

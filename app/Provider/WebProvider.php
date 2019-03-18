@@ -16,7 +16,7 @@ class WebProvider implements ServiceProviderInterface
     {
         $container['web.controller.page'] = function (Container $container) {
             /** @var Container $container */
-            $render = $container['render'];
+            $render = $container['render.web'];
             return new PageController($render);
         };
 
@@ -32,8 +32,8 @@ class WebProvider implements ServiceProviderInterface
         $container['web'] = function (Container $container) {
             $app = new App($container);
             $app->group('/', function () use ($app) {
-                $app->get('{name}', 'web.page:hello')->setName('hello')->add('web.middleware.log');
-                $app->get('', 'web.controller.page:main')->setName('main');
+                $app->get('{name}', 'web.controller.page:hello')->setName('hello')->add('web.middleware.log');
+                $app->get('', 'web.controller.page:home')->setName('home');
             });
             return $app;
         };

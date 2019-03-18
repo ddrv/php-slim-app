@@ -3,10 +3,10 @@
 namespace App\Command\Schedule;
 
 use App\Api\Schedule\ScheduleInterface;
+use App\Command\IOStyle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ScheduleListCommand extends Command
 {
@@ -33,7 +33,7 @@ class ScheduleListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
+        $io = new IOStyle($input, $output);
         $io->title('schedule');
         $rows = [];
         $jobs = $this->schedule->getJobs();

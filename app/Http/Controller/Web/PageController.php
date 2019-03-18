@@ -27,11 +27,11 @@ class PageController
         $this->render = $render;
     }
 
-    public function main(ServerRequestInterface $request, ResponseInterface $response, $args)
+    public function home(ServerRequestInterface $request, ResponseInterface $response, $args)
     {
         unset($args, $request);
         return $this->render->view($response, 'page/main', [
-            'command' => 'app:hello',
+            'command' => 'php ./bin/console app:hello',
         ]);
     }
 
