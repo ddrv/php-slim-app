@@ -7,6 +7,7 @@ return [
         \App\Provider\CommandsProvider::class,
         \App\Provider\RenderProvider::class,
         \App\Provider\LoggerProvider::class,
+        \App\Provider\ViewProvider::class,
         \App\Provider\WebProvider::class,
     ],
     'slim.settings' => [

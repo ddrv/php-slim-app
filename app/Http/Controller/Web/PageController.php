@@ -2,7 +2,7 @@
 
 namespace App\Http\Controller\Web;
 
-use App\Api\Render\RenderInterface;
+use App\Api\View\ViewInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -10,9 +10,9 @@ class PageController
 {
 
     /**
-     * @var RenderInterface
+     * @var ViewInterface
      */
-    protected $render;
+    protected $view;
 
     /**
      * @var array
@@ -20,17 +20,17 @@ class PageController
     protected $settings;
 
     /**
-     * @param RenderInterface $render
+     * @param ViewInterface $view
      */
-    public function __construct(RenderInterface $render)
+    public function __construct(ViewInterface $view)
     {
-        $this->render = $render;
+        $this->view = $view;
     }
 
     public function home(ServerRequestInterface $request, ResponseInterface $response)
     {
         unset($request);
-        return $this->render->view($response, 'page/main', [
+        return $this->view->view($response, 'page/main', [
             'command' => 'php ./bin/console app:hello',
         ]);
     }
@@ -38,7 +38,7 @@ class PageController
     public function hello(ServerRequestInterface $request, ResponseInterface $response)
     {
         $name = $request->getAttribute('name');
-        return $this->render->view($response, 'page/hello', [
+        return $this->view->view($response, 'page/hello', [
             'name' => $name,
         ]);
     }
