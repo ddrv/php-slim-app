@@ -9,8 +9,8 @@
         <env name="APP_ENV" value="test" />
     </php>
     <testsuites>
-        <testsuite name="web">
-            <directory>tests/Web</directory>
+        <testsuite name="all">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
     <filter>
