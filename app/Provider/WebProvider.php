@@ -2,6 +2,7 @@
 
 namespace App\Provider;
 
+use App\Api\View\ViewInterface;
 use App\Http\Controller\Web\PageController;
 use App\Http\Middleware\LogMiddleware;
 use Pimple\Container;
@@ -15,16 +16,13 @@ class WebProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         $container['web.controller.page'] = function (Container $container) {
-            /** @var Container $container */
-            $render = $container['render.web'];
-            return new PageController($render);
+            /** @var ViewInterface $view */
+            $view = $container['view'];
+            return new PageController($view);
         };
 
         $container['web.middleware.log'] = function (Container $container) {
-            /**
-             * @var Container $container
-             * @var LoggerInterface $logger
-             */
+            /** @var LoggerInterface $logger */
             $logger = $container['logger'];
             return new LogMiddleware($logger);
         };

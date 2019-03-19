@@ -4,7 +4,6 @@ namespace App\Service\Render\TwigRender;
 
 
 use App\Api\Render\RenderInterface;
-use Psr\Http\Message\ResponseInterface;
 use Twig\Environment;
 use Exception;
 
@@ -18,12 +17,12 @@ class TwigRender implements RenderInterface
     public function __construct(Environment $render, $data = [])
     {
         $this->render = $render;
-        $this->data = $data;
+        $this->data = (array)$data;
     }
 
     public function render($template, $data = [])
     {
-        $data = array_replace_recursive($this->data, $data);
+        if ($this->data) $data = array_replace_recursive($this->data, (array)$data);
         if (!preg_match('/\.twig$/ui', $template)) {
             $template .= '.twig';
         }
@@ -33,12 +32,5 @@ class TwigRender implements RenderInterface
             $out = null;
         }
         return $out;
-    }
-
-    public function view(ResponseInterface $response, $template, $data = [])
-    {
-        $body = $response->getBody();
-        $body->write($this->render($template, $data));
-        return $response;
     }
 }
