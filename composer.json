@@ -32,6 +32,13 @@
     "psr-4": {
       "Tests\\App\\": "tests"
     }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "php -r \"copy('config/global.php', 'config/local.php');\"",
+      "php -r \"copy('config/global.php', 'config/test.php');\"",
+      "php -r \"copy('phpunit.xml.dist', 'phpunit.xml');\""
+    ]
   }
 }
 
