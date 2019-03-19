@@ -17,9 +17,6 @@ Skeleton application based on [`slim/slim`](https://packagist.org/packages/slim/
 1. Create project with [`composer`](https://getcomposer.org/)
     ```
     composer create-project ddrv/slim-app path/to/project
-    cd /path/to/project
-    cp ./config/global.php ./config/local.php
-    cp ./config/global.php ./config/test.php
     ```
     
 2. Change config files `/path/to/project/config/local.php` and `/path/to/project/config/test.php`.
@@ -35,7 +32,6 @@ Skeleton application based on [`slim/slim`](https://packagist.org/packages/slim/
 # Testing
 
 ```
-cp ./phpunit.xml.dist ./phpunit.xml
 php ./vendor/bin/phpunit
 ```
 
